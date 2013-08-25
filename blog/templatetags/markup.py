@@ -12,7 +12,7 @@ register = template.Library()
 @register.filter
 @stringfilter
 def markup(value):
-    result = typogrify(markdown(text,
+    result = typogrify(markdown(value,
                                 lazy_ol=False,
                                 output_format='html5',
                                 extensions=['abbr',
