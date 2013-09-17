@@ -7,10 +7,11 @@ an example of actually using it, you can check out `the Django project
 which powers it <https://github.com/ubernostrum/b_list>`_.
 
 This is essentially the bare-minimum blog application; it has models
-for entries and a way to categorize them, plus the necessary views and
-admin bits. I'm pretty happy with it, and will likely be extremely
-conservative about adding features; it's out here in public mainly to
-serve as a simple example of:
+for entries and a way to categorize them, some nice text-to-HTML
+conversion, and the necessary views and admin bits. I'm pretty happy
+with it, and will likely be extremely conservative about adding
+features; it's out here in public mainly to serve as a simple example
+of:
 
 1. A useful, reusable blog app, and
 
