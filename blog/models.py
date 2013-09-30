@@ -90,15 +90,6 @@ class Entry(models.Model):
                  'day': self.pub_date.strftime('%d'),
                  'slug': self.slug})
 
-    def _next_previous_helper(self, direction):
-        return getattr(self, 'get_%s_by_pub_date' % direction)(status__exact=self.LIVE_STATUS)
-
-    def get_next(self):
-        return self._next_previous_helper('next')
-
-    def get_previous(self):
-        return self._next_previous_helper('previous')
-
 
 @python_2_unicode_compatible
 class Category(models.Model):

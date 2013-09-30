@@ -18,7 +18,7 @@ class NextPreviousNode(template.Node):
         except IndexError:
             return ''
 
-        method = getattr(obj, 'get_%s' % self.direction)
+        method = getattr(obj, 'get_%s_by_pub_date' % self.direction)
 
         try:
             result = method()
@@ -39,6 +39,10 @@ def next_previous(parser, token):
     the view. This tag finds the first actually-existing Entry, in
     either direction, so that links can go to a date range which
     actually has entries in it.
+
+    This is done in a template tag rather than simply calling the
+    model methods in templates because it needs to catch
+    ``DoesNotExist`` and simply return ``None``.
 
     Can be called as either ``get_next`` (to get the first Entry after
     the date range) or ``get_previous`` (to get the first Entry before
