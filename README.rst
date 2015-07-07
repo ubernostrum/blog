@@ -16,7 +16,7 @@ of:
 1. A useful, reusable blog app, and
 
 2. A Django application which runs on both Python 2 and Python 3 (I
-   personally deploy to Python 3.3).
+   personally deploy to Python 3.4).
 
 However, it's BSD-licensed, so if you want to take it as a baseline
 for building your own blog with extra or different features, please
