@@ -1,6 +1,5 @@
 import datetime
 
-from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
@@ -12,7 +11,7 @@ from typogrify.filters import typogrify
 def markup(text):
     """
     Mark up plain text into fancy HTML.
-    
+
     """
     return typogrify(markdown(text,
                               lazy_ol=False,
@@ -27,17 +26,20 @@ def markup(text):
 class LiveEntryManager(models.Manager):
     """
     Manager which will only fetch live entries.
-    
+
     """
     def get_query_set(self):
-        return super(LiveEntryManager, self).get_query_set().filter(status=self.model.LIVE_STATUS)
+        return super(
+            LiveEntryManager, self).get_query_set().filter(
+            status=self.model.LIVE_STATUS
+        )
 
 
 @python_2_unicode_compatible
 class Entry(models.Model):
     """
     An entry in the blog.
-    
+
     """
     LIVE_STATUS = 1
     DRAFT_STATUS = 2
@@ -58,7 +60,7 @@ class Entry(models.Model):
 
     body = models.TextField()
     body_html = models.TextField(editable=False, blank=True)
-    
+
     excerpt = models.TextField(blank=True, null=True)
     excerpt_html = models.TextField(editable=False, blank=True, null=True)
 
@@ -95,7 +97,7 @@ class Entry(models.Model):
 class Category(models.Model):
     """
     A category into which entries can be filed.
-    
+
     """
     title = models.CharField(max_length=250)
     slug = models.SlugField(unique=True)

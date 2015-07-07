@@ -18,7 +18,7 @@ class CategoryAdmin(admin.ModelAdmin):
             'fields': ('description',)
         }),
     )
-    
+
     list_display = ('title', 'slug', num_live_entries)
     list_display_links = ('title', 'slug')
 
@@ -27,7 +27,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class EntryAdmin(admin.ModelAdmin):
     date_hierarchy = 'pub_date'
-    
+
     fieldsets = (
         ('Metadata', {
             'fields': ('author', 'pub_date', 'title', 'slug', 'status')

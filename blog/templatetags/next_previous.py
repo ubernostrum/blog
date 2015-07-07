@@ -1,11 +1,14 @@
 from django import template
-from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 
 
 class NextPreviousNode(template.Node):
     def __init__(self, direction, queryset, date_field, varname):
-        self.direction, self.date_field, self.varname = direction, date_field, varname
+        (self.direction,
+         self.date_field,
+         self.varname) = (direction,
+                          date_field,
+                          varname)
         self.queryset = template.Variable(queryset)
 
     def render(self, context):
@@ -13,8 +16,8 @@ class NextPreviousNode(template.Node):
         result = None
 
         try:
-            obj = queryset[{ 'next': 0,
-                             'previous': -1 }[self.direction]]
+            obj = queryset[{'next': 0,
+                            'previous': -1}[self.direction]]
         except IndexError:
             return ''
 
@@ -51,13 +54,17 @@ def next_previous(parser, token):
     Syntax::
 
         {% get_(next/previous) queryset as varname %}
-    
+
     """
     bits = token.contents.split()
     if len(bits) != 5:
-        raise template.TemplateSyntaxError("'%s' takes four arguments" % bits[0])
+        raise template.TemplateSyntaxError(
+            "'%s' takes four arguments" % bits[0]
+        )
     if bits[3] != 'as':
-        raise template.TemplateSyntaxError("third argument to '%s' must be 'as'" % bits[0])
+        raise template.TemplateSyntaxError(
+            "Third argument to '%s' must be 'as'" % bits[0]
+        )
     return NextPreviousNode(bits[0].split('_')[1], bits[1], bits[2], bits[4])
 
 

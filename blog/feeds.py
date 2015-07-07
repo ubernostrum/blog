@@ -23,34 +23,36 @@ class EntriesFeed(Feed):
 
     description_template = 'feeds/entry_description.html'
     title_template = 'feeds/entry_title.html'
-    
+
     def item_categories(self, item):
         return [c.title for c in item.categories.all()]
-    
+
     def item_guid(self, item):
         return "tag:%s,%s:%s" % (current_site.domain,
                                  item.pub_date.strftime('%Y-%m-%d'),
                                  item.get_absolute_url())
-    
+
     def item_pubdate(self, item):
         return item.pub_date
-    
+
     def items(self):
-        return Entry.live.all()[:15]    
+        return Entry.live.all()[:15]
 
 
 class CategoryFeed(EntriesFeed):
     def description(self, obj):
-        return "%s: Latest entries in category '%s'" % (current_site.name, obj.title)
-    
+        return "%s: Latest entries in category '%s'" % (current_site.name,
+                                                        obj.title)
+
     def get_object(self, request, slug):
         return Category.objects.get(slug=slug)
-    
+
     def items(self, obj):
         return obj.live_entries[:15]
-    
+
     def link(self, obj):
         return obj.get_absolute_url()
-    
+
     def title(self, obj):
-        return "%s: Latest entries in category '%s'" % (current_site.name, obj.title)
+        return "%s: Latest entries in category '%s'" % (current_site.name,
+                                                        obj.title)

@@ -31,7 +31,7 @@ class EntryArchiveDay(BaseEntryView, generic.DayArchiveView):
 
 class EntryDetail(BaseEntryView, generic.DateDetailView):
     pass
-    
+
 
 class CategoryList(BaseCategoryView, generic.ListView):
     pass
