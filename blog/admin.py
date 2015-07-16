@@ -9,6 +9,7 @@ def num_live_entries(obj):
 num_live_entries.short_description = 'Live entries'
 
 
+@admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Metadata', {
@@ -25,6 +26,7 @@ class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
 
 
+@admin.register(Entry)
 class EntryAdmin(admin.ModelAdmin):
     date_hierarchy = 'pub_date'
 
@@ -50,7 +52,3 @@ class EntryAdmin(admin.ModelAdmin):
     def queryset(self, request):
         # Default manager only returns live entries; we want them all.
         return Entry.objects.all()
-
-
-admin.site.register(Category, CategoryAdmin)
-admin.site.register(Entry, EntryAdmin)
