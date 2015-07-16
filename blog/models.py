@@ -4,23 +4,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
-from markdown import markdown
-from typogrify.filters import typogrify
-
-
-def markup(text):
-    """
-    Mark up plain text into fancy HTML.
-
-    """
-    return typogrify(markdown(text,
-                              lazy_ol=False,
-                              output_format='html5',
-                              extensions=['abbr',
-                                          'codehilite',
-                                          'fenced_code',
-                                          'sane_lists',
-                                          'smart_strong']))
+from .markup import markup
 
 
 class LiveEntryManager(models.Manager):
