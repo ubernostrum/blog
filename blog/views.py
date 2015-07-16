@@ -38,7 +38,4 @@ class CategoryList(BaseCategoryView, generic.ListView):
 
 
 class CategoryDetail(BaseCategoryView, generic.DetailView):
-    def get_context_data(self, **kwargs):
-        context = super(CategoryDetail, self).get_context_data(**kwargs)
-        context['entries'] = self.object.live_entries
-        return context
+    pass
