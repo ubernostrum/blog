@@ -4,11 +4,6 @@ from .models import Category
 from .models import Entry
 
 
-def num_live_entries(obj):
-    return obj.live_entries.count()
-num_live_entries.short_description = 'Live entries'
-
-
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     fieldsets = (
@@ -24,6 +19,10 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display_links = ('title', 'slug')
 
     prepopulated_fields = {'slug': ('title',)}
+
+    def num_live_entries(self, obj):
+        return obj.live_entries.count()
+    num_live_entries.short_description = 'Live entries'
 
 
 @admin.register(Entry)
