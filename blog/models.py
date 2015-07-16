@@ -12,9 +12,9 @@ class LiveEntryManager(models.Manager):
     Manager which will only fetch live entries.
 
     """
-    def get_query_set(self):
+    def get_queryset(self):
         return super(
-            LiveEntryManager, self).get_query_set().filter(
+            LiveEntryManager, self).get_queryset().filter(
             status=self.model.LIVE_STATUS
         )
 
