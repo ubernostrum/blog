@@ -15,7 +15,7 @@ class CategoryAdmin(admin.ModelAdmin):
         }),
     )
 
-    list_display = ('title', 'slug', num_live_entries)
+    list_display = ('title', 'slug', 'num_live_entries')
     list_display_links = ('title', 'slug')
 
     prepopulated_fields = {'slug': ('title',)}
