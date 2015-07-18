@@ -4,7 +4,9 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
-from .markup import markup
+from markupfield.fields import MarkupField
+
+from .markup import MARKUP_TYPES
 
 
 class LiveEntryManager(models.Manager):
@@ -42,10 +44,17 @@ class Entry(models.Model):
                                  default=LIVE_STATUS)
     title = models.CharField(max_length=250)
 
-    body = models.TextField()
+    body = MarkupField(markup_choices=MARKUP_TYPES,
+                       rendered_field='body_html')
+
+    excerpt = MarkupField(markup_choices=MARKUP_TYPES,
+                          rendered_field='excerpt_html',
+                          blank=True, null=True)
+
+    # body = models.TextField()
     body_html = models.TextField(editable=False, blank=True)
 
-    excerpt = models.TextField(blank=True, null=True)
+    # excerpt = models.TextField(blank=True, null=True)
     excerpt_html = models.TextField(editable=False, blank=True, null=True)
 
     categories = models.ManyToManyField('Category')
@@ -60,12 +69,6 @@ class Entry(models.Model):
 
     def __str__(self):
         return self.title
-
-    def save(self, *args, **kwargs):
-        self.body_html = markup(self.body)
-        if self.excerpt:
-            self.excerpt_html = markup(self.excerpt)
-        super(Entry, self).save(*args, **kwargs)
 
     @models.permalink
     def get_absolute_url(self):
@@ -85,7 +88,8 @@ class Category(models.Model):
     """
     title = models.CharField(max_length=250)
     slug = models.SlugField(unique=True)
-    description = models.TextField()
+    description = MarkupField(markup_choices=MARKUP_TYPES,
+                              rendered_field='description_html')
     description_html = models.TextField(editable=False, blank=True)
 
     class Meta:
@@ -94,10 +98,6 @@ class Category(models.Model):
 
     def __str__(self):
         return self.title
-
-    def save(self, *args, **kwargs):
-        self.description_html = markup(self.description)
-        super(Category, self).save(*args, **kwargs)
 
     @models.permalink
     def get_absolute_url(self):
