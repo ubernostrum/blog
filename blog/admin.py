@@ -48,6 +48,6 @@ class EntryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     search_fields = ('title',)
 
-    def queryset(self, request):
+    def get_queryset(self, request):
         # Default manager only returns live entries; we want them all.
         return Entry.objects.all()
