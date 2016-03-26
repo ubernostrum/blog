@@ -106,5 +106,5 @@ class Category(models.Model):
                 {'slug': self.slug})
 
     def _get_live_entries(self):
-        return self.entry_set.filter(status__exact=Entry.LIVE_STATUS)
+        return self.entry_set.filter(status=Entry.LIVE_STATUS)
     live_entries = property(_get_live_entries)
