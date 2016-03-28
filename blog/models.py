@@ -1,6 +1,6 @@
 import datetime
 
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
@@ -34,7 +34,7 @@ class Entry(models.Model):
         (HIDDEN_STATUS, 'Hidden'),
     )
 
-    author = models.ForeignKey(User)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL)
     pub_date = models.DateTimeField('Date posted',
                                     default=datetime.datetime.now)
     slug = models.SlugField(unique_for_date='pub_date')
