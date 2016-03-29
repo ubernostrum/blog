@@ -1,7 +1,6 @@
 from django.views import generic
 
-from .models import Category
-from .models import Entry
+from .models import Category, Entry
 
 
 class BaseEntryView(object):
