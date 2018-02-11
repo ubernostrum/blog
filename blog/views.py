@@ -29,7 +29,11 @@ class EntryArchiveDay(BaseEntryView, generic.DayArchiveView):
 
 
 class EntryDetail(BaseEntryView, generic.DateDetailView):
-    pass
+    def get_queryset(self):
+        # Allow logged-in users to view draft entries.
+        if self.request.user.is_authenticated:
+            return Entry.objects.all()
+        return Entry.objects.live()
 
 
 class CategoryList(BaseCategoryView, generic.ListView):
