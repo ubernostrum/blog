@@ -33,7 +33,7 @@ class EntryDetail(BaseEntryView, generic.DateDetailView):
         # Allow logged-in users to view draft entries.
         if self.request.user.is_authenticated:
             return Entry.objects.all()
-        return Entry.objects.live()
+        return Entry.live.all()
 
 
 class CategoryList(BaseCategoryView, generic.ListView):

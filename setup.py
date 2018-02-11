@@ -2,7 +2,7 @@ from distutils.core import setup
 
 
 setup(name='blog',
-      version='1.1',
+      version='1.2',
       zip_safe=False,  # eggs are the devil.
       description='A blog application for Django.',
       author='James Bennett',
