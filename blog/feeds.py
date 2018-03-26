@@ -35,6 +35,9 @@ class EntriesFeed(Feed):
     def item_pubdate(self, item):
         return item.pub_date
 
+    def item_updateddate(self, item):
+        return item.updated_date
+
     def items(self):
         return Entry.live.all()[:15]
 

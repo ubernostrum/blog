@@ -37,6 +37,10 @@ class Entry(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL)
     pub_date = models.DateTimeField('Date posted',
                                     default=datetime.datetime.now)
+    updated_date = models.DateTimeField(
+        blank=True,
+        editable=False,
+    )
     slug = models.SlugField(unique_for_date='pub_date')
     status = models.IntegerField(choices=STATUS_CHOICES,
                                  default=LIVE_STATUS)
@@ -65,6 +69,7 @@ class Entry(models.Model):
         self.body_html = markup(self.body)
         if self.excerpt:
             self.excerpt_html = markup(self.excerpt)
+        self.updated_date = datetime.datetime.now()
         super(Entry, self).save(*args, **kwargs)
 
     @models.permalink
