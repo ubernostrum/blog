@@ -2,6 +2,7 @@ import datetime
 
 from django.conf import settings
 from django.db import models
+from django.urls import reverse
 from django.utils.encoding import python_2_unicode_compatible
 
 from .markup import markup
@@ -75,14 +76,15 @@ class Entry(models.Model):
         self.updated_date = datetime.datetime.now()
         super(Entry, self).save(*args, **kwargs)
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('blog_entry_detail',
-                (),
-                {'year': self.pub_date.strftime('%Y'),
-                 'month': self.pub_date.strftime('%b').lower(),
-                 'day': self.pub_date.strftime('%d'),
-                 'slug': self.slug})
+        return reverse(
+            'blog_entry_detail',
+            (),
+            {'year': self.pub_date.strftime('%Y'),
+             'month': self.pub_date.strftime('%b').lower(),
+             'day': self.pub_date.strftime('%d'),
+             'slug': self.slug}
+        )
 
 
 @python_2_unicode_compatible
@@ -107,11 +109,12 @@ class Category(models.Model):
         self.description_html = markup(self.description)
         super(Category, self).save(*args, **kwargs)
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('blog_category_detail',
-                (),
-                {'slug': self.slug})
+        return reverse(
+            'blog_category_detail',
+            (),
+            {'slug': self.slug}
+        )
 
     def _get_live_entries(self):
         return self.entry_set.filter(status=Entry.LIVE_STATUS)
