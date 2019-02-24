@@ -34,7 +34,10 @@ class Entry(models.Model):
         (HIDDEN_STATUS, 'Hidden'),
     )
 
-    author = models.ForeignKey(settings.AUTH_USER_MODEL)
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
     pub_date = models.DateTimeField('Date posted',
                                     default=datetime.datetime.now)
     updated_date = models.DateTimeField(
